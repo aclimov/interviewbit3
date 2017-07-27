@@ -1,0 +1,63 @@
+public class Solution {
+    
+    HashMap<Integer,LRUItem> hm = new HashMap<Integer,LRUItem>();
+    PriorityQueue<LRUItem> q = new PriorityQueue(16,Compare.LRUCOMPARE);
+    int N=0;
+    int idx=1;
+    public Solution(int capacity) {
+       N=capacity; 
+    }
+    
+    public int get(int key) {
+        if(hm.containsKey(key)){
+            //increase counter
+            LRUItem l  = hm.get(key);
+            q.remove(l);
+            l.lrucounter=idx++;
+            q.add(l);
+            
+            return l.val;
+            
+        }else{
+            return -1;
+        }
+    }
+    
+    public void set(int key, int value) {
+        if(hm.containsKey(key)){
+            LRUItem l  = hm.get(key);
+            q.remove(l);
+            l.lrucounter=idx++;
+            l.val = value;
+            q.add(l);
+            
+        }else{
+            if(hm.size()==N){
+                LRUItem r = q.poll();
+                hm.remove(r.key);
+
+            }
+            LRUItem l = new LRUItem();
+            l.key=key;
+            l.lrucounter = idx++;
+            l.val = value;
+            q.add(l);
+            hm.put(key,l);
+        }
+    }
+}
+
+class LRUItem{
+    public int key;
+    public int lrucounter;
+    public int val;
+}
+
+class Compare implements Comparator<LRUItem>{
+    @Override
+    public int compare(LRUItem l1, LRUItem l2){
+        return Integer.compare(l1.lrucounter,l2.lrucounter);
+    }
+    
+    static final Compare LRUCOMPARE = new Compare();
+}
