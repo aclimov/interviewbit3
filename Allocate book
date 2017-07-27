@@ -1,0 +1,42 @@
+public class Solution {
+	public long books(ArrayList<Integer> a, int b) {
+	    
+	    
+	    if(b>a.size())return -1;
+	    
+	    long res = -1;
+	    int h = Integer.MAX_VALUE;
+	    int l = 0;
+	    while(l<=h){
+	        int mid = (l+h)/2;
+	        if(possible(a,mid,b)){
+	            res = mid;
+	            h = mid-1;
+	        }else{
+	            l= mid+1;
+	        }
+	    }
+	    
+	    return res;
+	}
+	
+	public boolean possible(ArrayList<Integer> a , long max, int b){
+	    
+	    int counter=0;
+	    int student =1 ;
+	    int sum=0;
+	    while(counter<a.size()&&student<=b){
+	        if(sum+a.get(counter)>max){
+	            sum=0;
+	            student++;
+	        }else{
+	            sum+=a.get(counter);
+	            counter++;
+	        }
+	    }
+	    
+	    if(student>b||counter<a.size()){return false;}
+	    return true;
+	    
+	}
+}
