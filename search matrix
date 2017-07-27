@@ -1,0 +1,19 @@
+public class Solution {
+	public int searchMatrix(ArrayList<ArrayList<Integer>> a, int b) {
+	    
+	    int i=0;
+	    int j=0;
+	    int N = a.size();
+	    int M= a.get(0).size();
+	    while(i<N&&j<M){
+	        if(a.get(i).get(j)==b) return 1;
+	        if(a.get(i).get(M-1)<b){
+	            i++;
+	        }else{
+	            j++;
+	        }
+	    }
+	    
+	    return 0;
+	}
+}
