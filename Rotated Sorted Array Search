@@ -1,0 +1,56 @@
+import java.util.ArrayList;
+import java.util.List;
+public class Solution {
+	// DO NOT MODIFY THE LIST
+	public int search(final List<Integer> a, int b) {
+	    
+	    //find pivot
+	    //the search for target in both arrays;
+	    
+	    int l = 0;
+	    int h = a.size()-1;
+	    
+	    while(l<h){
+	        int mid = (l+h)/2;
+	        if(a.get(mid)>a.get(h)){
+	            l = mid+1;
+	        }else
+	        {
+	            h=mid;
+	        }
+	    }
+	    
+	    int pivot = l;
+	    
+	    if(pivot==0){return getIdx(a,0,a.size()-1,b);}
+	    if(pivot==1){ return (a.get(0)!=b)?getIdx(a,1,a.size()-1,b):0; }
+	    int idx = getIdx(a,0,pivot-1,b);
+	    if(idx!=-1) {return idx;}
+	    else
+	        {
+	            idx = getIdx(a,pivot,a.size()-1,b);
+	            if(idx!=-1){return idx;}
+	            else{return -1;}
+	        }
+	        
+	        
+	    
+	}
+	
+	int getIdx(List<Integer> a, int l, int h, int target){
+	    
+	    while(l<=h){
+	        int mid = (l+h)/2;
+	        if(a.get(mid)==target)return mid;
+	        else if(a.get(mid)<target){
+	           l=mid+1;
+	           
+	        }else
+	        {
+	            h=mid-1;
+	        }
+	    }
+	    
+	    return -1;
+	}
+}
