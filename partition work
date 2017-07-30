@@ -1,0 +1,52 @@
+public class Solution {
+	public int paint(int a, int b, ArrayList<Integer> c) {
+	    
+	    int max=Integer.MIN_VALUE;
+	    int sum=0;
+	    for(Integer i : c){
+	        max = Math.max(max,i);
+	        sum+=i;
+	    }
+	    
+	    int l=max;
+	    int r = sum;
+	    int res = sum;
+	    while(l<=r){
+	        int m = l+(r-l)/2;
+	        if(m<max){
+	            l=m+1;
+	        }
+	        else{
+	            if(isPossible(m,a,c)){
+	                res = m;
+	                r = m-1;
+	            }else{
+	                l=m+1;
+	            }
+	        }
+	    }
+	   
+	    return (int)(((long)res*b)%10000003);
+	    
+	}
+	
+	boolean isPossible(int t,   int a, ArrayList<Integer>c){
+	    
+	   //split c in buckets size of t
+	   
+	   int ctn=1;
+	   int bucket=0;
+	   for(int i=0;i<c.size();i++){
+	       if(bucket+c.get(i)>t){
+	           ctn++;
+	           bucket = 0;
+	       }
+	           bucket+=c.get(i);
+	       
+	   }
+	   
+	   return ctn<=a;
+	   //return true if  numof buckets<= a
+	   
+	}
+}
