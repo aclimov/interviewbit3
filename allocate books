@@ -1,0 +1,67 @@
+public class Solution {
+	public int books(ArrayList<Integer> a, int b) {
+	    
+	    if(a.size()<b)return -1;
+	    
+	    int sum=0;
+	    int max=Integer.MIN_VALUE;
+	    int res = -1;
+	    for(int i=0;i<a.size();i++){
+	        max = Math.max(max, a.get(i));
+	        sum+=a.get(i);
+	    }
+	    
+	    int l=max;
+	    int r=sum;
+	    while(l<=r){
+	        int m = l+(r-l)/2;
+	        boolean c=ispossible(a,b,m);
+	        if(c){
+	            res = m;
+	            r = m-1;
+	        }else {
+	            l=m+1;
+	        }
+	        
+	    }
+	    return res;
+	    
+	}
+	
+	boolean ispossible(ArrayList<Integer>a, int b, int m){
+	   int students =0;
+	   int buck = 0;
+	   for(int i=0;i<a.size();i++){
+	       if(buck+a.get(i)>m){
+	           students++;
+	           buck=0;
+	       }
+	       
+	       buck+=a.get(i);
+	   }
+	   
+	   if(buck>0){students++;}
+	   
+	   return students<=b;
+	}
+	
+	boolean possible(ArrayList<Integer> a ,  int b,long max){
+	    
+	    int counter=0;
+	    int student =1 ;
+	    int sum=0;
+	    while(counter<a.size()&&student<=b){
+	        if(sum+a.get(counter)>max){
+	            sum=0;
+	            student++;
+	        }else{
+	            sum+=a.get(counter);
+	            counter++;
+	        }
+	    }
+	    
+	    if(student>b||counter<a.size()){return false;}
+	    return true;
+	    
+	}
+}
