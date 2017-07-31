@@ -1,0 +1,21 @@
+public class Solution {
+	public int pow(int x, int n, int d) {
+	 
+	 if(n==0) return 1%d;
+	 long ans =1;
+	 long base = x;
+	 
+	    while(n>0){
+	        if(n%2==0){
+	            base=(base*base)%d;
+	            n=n/2;
+	        }else{
+	            ans=(ans*base)%d;
+	            n=n-1;
+	        }
+	    }
+	    if(ans<0) {ans = (ans+d)%d;}
+	    
+	    return (int)ans;
+}
+}
