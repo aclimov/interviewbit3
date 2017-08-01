@@ -1,0 +1,42 @@
+public class Solution {
+    public ArrayList<Integer> dNums(ArrayList<Integer> A, int B) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if(B>A.size()){
+            return res;
+        }
+        HashMap<Integer,Integer>h = new HashMap();
+        int i=0;
+        while(i<B){
+            int val = A.get(i);
+            if(h.containsKey(val)){
+                h.put(val,h.get(val)+1);
+            }else{
+                h.put(val,1);
+            }
+            
+            i++;
+        }
+        
+        res.add(h.size());
+        
+        int j=0;
+        while(i<A.size()){
+            //remove
+            int val_remove = A.get(j);
+            int val_add = A.get(i);
+            if(val_remove!=val_add){
+             if(h.get(val_remove)>1){h.put(val_remove,h.get(val_remove)-1);}
+             else{h.remove(val_remove);}
+             if(h.containsKey(val_add)){h.put(val_add,h.get(val_add)+1);}
+             else{h.put(val_add,1);}
+            }
+             res.add(h.size());
+            
+            j++;
+            i++;
+        }
+        
+        return res;
+        
+    }
+}
